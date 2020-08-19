@@ -46,11 +46,17 @@ stage('Building/Deploying our image') {
     	            sh "scp -o StrictHostKeyChecking=no spring.yaml raghava_1336430@13.93.120.161:/home/raghava_1336430/"
                    script
                           {
-                              sh "ssh raghava_1336430@13.93.120.161 kubectl create -f . -n devopss-1336430"   
-                          }
+                                 try
+                                 {
+                              sh "ssh raghava_1336430@13.93.120.161 kubectl apply -f spring.yaml -n devopss-1336430"   
+                                 }
+                                 catch(error)
+                                 {
+                                 sh "ssh raghava_1336430@13.93.120.161 kubectl create -f spring.yaml -n devopss-1336430"   
+                                 }
                    }
     	}
     }
-      
+  }
 }
 }
