@@ -30,12 +30,15 @@ pipeline {
          
          
 stage('Building/Deploying our image') { 
+       steps
+       {
              withCredentials([usernamePassword(credentialsId: '8acfc31c-d902-463d-ad29-afdc446892df', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh ("docker login -u ${USERNAME} -p ${PASSWORD}")
                         sh ("docker build -t ${USERNAME}/testing:first .")
                         sh ("docker push ${USERNAME}/testing:first")
                 }
      }
+}
          
   
        stage('Deploy Application on K8s') {
