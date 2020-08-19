@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
       - name: springra
-        image: raghavgeek/testing:10
+        image: raghavgeek/testing:latest
         resources:
           limits:
             memory: 1Gi
