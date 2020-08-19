@@ -43,7 +43,11 @@ stage('Building/Deploying our image') {
   stage("Deploy on AKS using cluster"){
               steps { 
     	            sshagent(['raghava_1336430']){
-    	            sh 'ssh -o StrictHostKeyChecking=no raghava_1336430@13.93.120.161 kubectl create -f nexus-1336430.yaml -n devopss-1336430'
+    	            sh "ssh -o StrictHostKeyChecking=no spring.yaml raghava_1336430@13.93.120.161:/home/raghava_1336430/"
+                   script
+                          {
+                              sh "kubectl create -f spring.yaml -n devopss-1336430"   
+                          }
                    }
     	}
     }
