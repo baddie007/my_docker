@@ -27,12 +27,14 @@ pipeline {
             sh "mvn sonar:sonar -Dsonar.projectKey=SpringPipeline -Dsonar.host.url=http://52.143.7.186/sonarqube-1336430 -Dsonar.login=23e2ff1beac97da72a5edff2c7e3a72e33578244"
                 }
      }
+         
+         
 stage('Building/Deploying our image') { 
-             steps { 
-                    sh "docker build -t raghavgeek/testing:first ."
-                    sh "docker push raghavgeek/testing"
-                 } 
-
+             withCredentials([usernamePassword(credentialsId: '8acfc31c-d902-463d-ad29-afdc446892df', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh ("docker login -u ${USERNAME} -p ${PASSWORD}")
+                        sh ("docker build -t ${USERNAME}/testing:first .")
+                        sh ("docker push ${USERNAME}/testing:first")
+                }
      }
          
   
