@@ -4,8 +4,8 @@ pipeline {
     maven 'Maven'
   }
   environment {
-   registry = "raghavgeek/testing"
-   registryCredential = "8acfc31c-d902-463d-ad29-afdc446892df"
+   registry = "arpit74/testing"
+   registryCredential = "638c46c6-0260-4af4-adee-fe5d19c229ec"
   }
   stages {
     stage('Initialize'){
@@ -20,19 +20,12 @@ pipeline {
         sh "mvn clean install"
     }     
     }
-         stage('Sonar'){
-                steps
-                {
-        
-            sh "mvn sonar:sonar -Dsonar.projectKey=SpringPipeline -Dsonar.host.url=http://52.143.7.186/sonarqube-1336430 -Dsonar.login=23e2ff1beac97da72a5edff2c7e3a72e33578244"
-                }
-     }
          
          
 stage('Building/Deploying our image') { 
        steps
        {
-             withCredentials([usernamePassword(credentialsId: '8acfc31c-d902-463d-ad29-afdc446892df', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+             withCredentials([usernamePassword(credentialsId: '638c46c6-0260-4af4-adee-fe5d19c229ec', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh ("docker login -u ${USERNAME} -p ${PASSWORD}")
                         sh ("docker build -t ${USERNAME}/testing:first .")
                         sh ("docker push ${USERNAME}/testing:first")
@@ -42,17 +35,17 @@ stage('Building/Deploying our image') {
          
   stage("Deploy on AKS using cluster"){
               steps { 
-    	            sshagent(['raghava_1336430']){
-    	            sh "scp -o StrictHostKeyChecking=no spring.yaml raghava_1336430@13.93.120.161:/home/raghava_1336430/"
+    	            sshagent(['arpit_1645386']){
+    	            sh "scp -o StrictHostKeyChecking=no spring.yaml arpit_1645386@13.93.120.161:/home/arpit_1645386/"
                    script
                           {
                                  try
                                  {
-                              sh "ssh raghava_1336430@13.93.120.161 kubectl apply -f spring.yaml -n devopss-1336430"   
+                              sh "ssh arpit_1645386@13.93.120.161 kubectl apply -f spring.yaml -n arpit1645386"   
                                  }
                                  catch(error)
                                  {
-                                 sh "ssh raghava_1336430@13.93.120.161 kubectl create -f spring.yaml -n devopss-1336430"   
+                                 sh "ssh arpit_1645386@13.93.120.161 kubectl create -f spring.yaml -n arpit1645386"   
                                  }
                    }
     	}
