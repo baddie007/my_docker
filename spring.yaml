@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: raghav-1336430
+  name: arpit-1645386
   labels:
-    app: springra
+    app: spring
 spec:
   replicas: 1
   selector:
        matchLabels:
-         app: springra
+         app: spring
   template:
     metadata:
-      name: springra
+      name: spring
       labels:
-        app: springra
+        app: spring
     spec:
       containers:
-      - name: springra
-        image: raghavgeek/testing:first
+      - name: spring
+        image: arpit74/testing:first
         resources:
           limits:
             memory: 1Gi
@@ -27,17 +27,17 @@ spec:
             cpu: "0.25"
   selector:
     matchLabels:
-      app: springra
+      app: spring
 
 ---
 
 apiVersion: v1
 kind: Service
 metadata:
-  name: springra
+  name: spring
 spec:
   selector:
-    app: springra
+    app: spring
   ports:
     - port: 8080
   type: LoadBalancer
