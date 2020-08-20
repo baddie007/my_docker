@@ -4,7 +4,7 @@ pipeline {
     maven 'Maven'
   }
   environment {
-   registry = "arpit74/testing"
+   registry = "arpit74/mytest"
    registryCredential = "638c46c6-0260-4af4-adee-fe5d19c229ec"
   }
   stages {
@@ -27,8 +27,8 @@ stage('Building/Deploying our image') {
        {
              withCredentials([usernamePassword(credentialsId: '638c46c6-0260-4af4-adee-fe5d19c229ec', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh ("docker login -u ${USERNAME} -p ${PASSWORD}")
-                        sh ("docker build -t ${USERNAME}/testing:first .")
-                        sh ("docker push ${USERNAME}/testing:first")
+                        sh ("docker build -t ${USERNAME}/mytest:first .")
+                        sh ("docker push ${USERNAME}/mytest:first")
                 }
      }
 }
